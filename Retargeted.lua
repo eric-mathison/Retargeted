@@ -10,7 +10,7 @@ local function feigning()
 	return UnitCanAttack('player', 'target')
 end
 
-local function classcheck()
+local function ClassCheck()
     if (UnitClass'target' == 'Hunter' or UnitClass'target' == 'Rogue') then
         return true
     else 
@@ -18,13 +18,13 @@ local function classcheck()
     end
 end
 
-local unit, dead, lost, player
+local unit, dead, lost, player, classcheck
 
 CreateFrame'Frame':SetScript('OnUpdate', function()
 	local target = UnitName'target'
-	if (target and classcheck()) then
-		unit, dead, lost, player = target, UnitIsDead'target', false, UnitIsPlayer'target'
-	elseif (unit and player) then
+	if (target) then
+		unit, dead, lost, player, classcheck = target, UnitIsDead'target', false, UnitIsPlayer'target', ClassCheck()
+	elseif (unit and player and classcheck) then
 		TargetByName(unit, true)
 		if UnitExists'target' then
 			if not (lost or (not dead and UnitIsDead'target' and feigning())) then
@@ -33,6 +33,6 @@ CreateFrame'Frame':SetScript('OnUpdate', function()
 			end
 		else
 			lost = true
-		end
+		end 
 	end
 end)

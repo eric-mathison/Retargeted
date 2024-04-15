@@ -1,0 +1,7 @@
+## Interface: 11200
+## Author: norse
+## Title: Retargeted
+## Notes: Automatically retargets hunters when they feign death and rogues after they stealth.
+## Version: 1.0.0
+
+Retargeted.lua
